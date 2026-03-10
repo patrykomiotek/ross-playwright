@@ -9,8 +9,7 @@ export class LoginPage {
   }
 
   async goto() {
-    await this.page.goto("http://localhost:8080/index.html");
-    // await this.page.goto("http://localhost:49979/index.html");
+    await this.page.goto("/index.html");
   }
 
   async login(email, password) {

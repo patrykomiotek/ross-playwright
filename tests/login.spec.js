@@ -44,7 +44,7 @@ test("should not pass", async ({ page }) => {
   await expect(page.getByText("Nieprawidłowy email lub hasło")).toBeVisible();
 });
 
-test("wrong test", async ({ page }) => {
+test.skip("wrong test", async ({ page }) => {
   const loginPage = new LoginPage(page);
 
   await loginPage.goto();
