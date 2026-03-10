@@ -43,3 +43,15 @@ test("should not pass", async ({ page }) => {
 
   await expect(page.getByText("Nieprawidłowy email lub hasło")).toBeVisible();
 });
+
+test("wrong test", async ({ page }) => {
+  const loginPage = new LoginPage(page);
+
+  await loginPage.goto();
+
+  await loginPage.login("test@rossmann.pl", "Test1234");
+
+  // await page.waitForTimeout(1000);
+
+  await expect(page.getByText("Nieprawidłowy email lub hasło")).toBeVisible();
+});
