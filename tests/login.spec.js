@@ -4,20 +4,42 @@ import { LoginPage } from "../pages/LoginPage";
 // test('it should login as admin')
 test("should login as admin", async ({ page }) => {
   const loginPage = new LoginPage(page);
-  await loginPage.goto();
-  await loginPage.login("admin@rossmann.pl", "Admin5678");
 
-  // expect(page.locator('#greeting-title')).toBe('Witaj, Administrator!')
-  await expect(page.getByText("Witaj, Administrator!")).toBeVisible();
-  // 1. /
+  // 1. go to /
+  await loginPage.goto();
+
   // 2. fill form
   // 3. click submit
-  // 4. expect "Witaj, Admin"
+  await loginPage.login("admin@rossmann.pl", "Admin5678");
+
+  // 4. expect "Witaj, Administrator!"
+  // expect(page.locator('#greeting-title')).toBe('Witaj, Administrator!')
+  // await expect(page).toHaveURL('http://localhost:49979/dashboard.html');
+  await expect(page.getByText("Witaj, Administrator!")).toBeVisible();
 });
 
-// it('should login as tester', async ({ page }) => {
-//   // 1. /
-//   // 2. fill form
-//   // 3. click submit
-//   // 4. expect "Witaj, Test"
-// });
+test("should login as tester", async ({ page }) => {
+  const loginPage = new LoginPage(page);
+
+  // 1. go to /
+  await loginPage.goto();
+
+  // 2. fill form
+  // 3. click submit
+  await loginPage.login("test@rossmann.pl", "Test1234");
+
+  // 4. expect "Witaj, Administrator!"
+  // expect(page.locator('#greeting-title')).toBe('Witaj, Administrator!')
+  // await expect(page).toHaveURL('http://localhost:49979/dashboard.html');
+  await expect(page.getByText("Witaj, Tester!")).toBeVisible();
+});
+
+test("should not pass", async ({ page }) => {
+  const loginPage = new LoginPage(page);
+
+  await loginPage.goto();
+
+  await loginPage.login("test@rossmann.pl", "ZLE_HASLO");
+
+  await expect(page.getByText("Nieprawidłowy email lub hasło")).toBeVisible();
+});
