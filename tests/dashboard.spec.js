@@ -31,7 +31,8 @@ test.describe("Dashboard", () => {
 
     test("should logout and redirect to login page", async ({ page }) => {
       await dashboardPage.logout();
-      await expect(page).toHaveURL(/index\.html/);
+      // await expect(page).toHaveURL(/index\.html/);
+      await expect(page).toHaveURL("/index.html");
     });
 
     test("should navigate to cart page", async ({ page }) => {
@@ -91,8 +92,17 @@ test.describe("Dashboard", () => {
   test.describe("Cart", () => {
     test("should add product to cart and update badge", async () => {
       await dashboardPage.waitForProducts();
+
       await dashboardPage.addProductToCart(0);
+      const productsInCart = await dashboardPage.getCartBadgeCount();
+
+      await dashboardPage.addProductToCart(1);
+      await dashboardPage.addProductToCart(2);
+      const newProductsInCart = await dashboardPage.getCartBadgeCount();
+
       await expect(dashboardPage.cartBadge).toBeVisible();
+      expect(productsInCart).not.toBe(newProductsInCart);
+      expect(newProductsInCart).toBe("3");
     });
 
     test("should increment cart badge on multiple adds", async () => {

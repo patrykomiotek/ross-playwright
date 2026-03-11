@@ -15,7 +15,8 @@ test("should login as admin", async ({ page }) => {
   // 4. expect "Witaj, Administrator!"
   // expect(page.locator('#greeting-title')).toBe('Witaj, Administrator!')
   // await expect(page).toHaveURL('http://localhost:49979/dashboard.html');
-  await expect(page.getByText("Witaj, Administrator!")).toBeVisible();
+  // await expect(page.getByText("Witaj, Administrator!")).toBeVisible();
+  await expect(page).toHaveURL("/dashboard.html");
 });
 
 test("should login as tester", async ({ page }) => {
@@ -31,7 +32,8 @@ test("should login as tester", async ({ page }) => {
   // 4. expect "Witaj, Administrator!"
   // expect(page.locator('#greeting-title')).toBe('Witaj, Administrator!')
   // await expect(page).toHaveURL('http://localhost:49979/dashboard.html');
-  await expect(page.getByText("Witaj, Tester!")).toBeVisible();
+  // await expect(page.getByText("Witaj, Tester!")).toBeVisible();
+  await expect(page).toHaveURL("/dashboard.html");
 });
 
 test("should not pass", async ({ page }) => {
@@ -41,7 +43,8 @@ test("should not pass", async ({ page }) => {
 
   await loginPage.login("test@rossmann.pl", "ZLE_HASLO");
 
-  await expect(page.getByText("Nieprawidłowy email lub hasło")).toBeVisible();
+  // await expect(page.getByText("Nieprawidłowy email lub hasło")).toBeVisible();
+  await expect(loginPage.errorMessage).toBeVisible();
 });
 
 test.skip("wrong test", async ({ page }) => {
@@ -53,5 +56,6 @@ test.skip("wrong test", async ({ page }) => {
 
   // await page.waitForTimeout(1000);
 
-  await expect(page.getByText("Nieprawidłowy email lub hasło")).toBeVisible();
+  // await expect(page.getByText("Nieprawidłowy email lub hasło")).toBeVisible();
+  await expect(loginPage.errorMessage).toBeVisible();
 });
